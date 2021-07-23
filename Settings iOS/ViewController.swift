@@ -14,8 +14,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private lazy var tableView: UITableView = {
         
         let table = UITableView(frame: .zero, style: .grouped)
+        
         table.register(StandardTableViewCell.self, forCellReuseIdentifier: StandardTableViewCell.indentifier)
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.indentifier)
+        table.register(LabelTableViewCell.self, forCellReuseIdentifier: LabelTableViewCell.indentifier)
+        
         table.delegate = self
         table.dataSource = self
         table.frame = view.bounds
@@ -60,7 +63,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.configure(with: model)
             return cell
+            
+        case.labelCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: LabelTableViewCell.indentifier,
+                for: indexPath
+            ) as? LabelTableViewCell else {
+                return UITableViewCell()
+                }
+            
+            cell.configure(with: model)
+            return cell
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -71,6 +86,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case.standardCell(let model):
             model.handler()
         case.switchCell(let model):
+            model.handler()
+        case.labelCell(let model):
             model.handler()
         }
     }
@@ -86,9 +103,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             iconBackgroundColor: .systemOrange,
                             handler: {print("Нажата ячейка Авиарежим")},
                             isOn: true)),
+            .labelCell(model: SettingLabelOptions(
+                        title: "Wi-Fi",
+                        icon: UIImage(systemName: "wifi"),
+                        iconBackgroundColor: .systemBlue,
+                        label: "Не подключено",
+                        handler: {print("Нажата ячейка Wi-Fi")})),
             
-            .standardCell(model:  SettingStandardOption(
-                            title: "Сотовая связь",
+            .standardCell(model:  SettingStandardOption(title: "Сотовая связь",
                             icon: UIImage(systemName: "antenna.radiowaves.left.and.right"),
                             iconBackgroundColor: .systemGreen,
                             handler: {print("Нажата ячейка Сотовая связь")})),
@@ -114,7 +136,7 @@ struct Sections {
 enum SettingsOptionType {
     case standardCell(model: SettingStandardOption)
     case switchCell(model: SettingSwitchOptions)
-    
+    case labelCell(model: SettingLabelOptions)
 }
 
 struct SettingStandardOption {
@@ -130,4 +152,13 @@ struct SettingSwitchOptions {
     let iconBackgroundColor: UIColor
     let handler: (() -> Void)
     var isOn: Bool
+}
+
+struct SettingLabelOptions {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    var label: String
+    let handler: (() -> Void)
+    
 }
