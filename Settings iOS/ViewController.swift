@@ -153,12 +153,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         label: "Не подключено",
                         handler: {print("Нажата ячейка Wi-Fi")})),
             
-            .standardCell(model: SettingStandardOption(
-                            title: "Сотовая связь",
-                            icon: UIImage(systemName: "antenna.radiowaves.left.and.right"),
-                            iconBackgroundColor: .systemGreen,
-                            handler: {print("Нажата ячейка Сотовая связь")})),
-            
             .labelCell(model: SettingLabelOptions(
                         title: "Bluetooth",
                         icon: UIImage(named: "блютуз"),
