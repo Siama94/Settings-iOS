@@ -60,11 +60,11 @@
 		5D6BFE5026AB2FD0006D0BD6 /* Settings iOS */ = {
 			isa = PBXGroup;
 			children = (
+				5D6BFE5126AB2FD0006D0BD6 /* AppDelegate.swift */,
 				5D6BFE5526AB2FD0006D0BD6 /* ViewController.swift */,
 				5D6BFE7426AB5084006D0BD6 /* TableViewCell */,
 				5D6BFE5A26AB2FDE006D0BD6 /* Assets.xcassets */,
 				5D6BFE5726AB2FD0006D0BD6 /* Main.storyboard */,
-				5D6BFE5126AB2FD0006D0BD6 /* AppDelegate.swift */,
 				5D6BFE5C26AB2FDE006D0BD6 /* LaunchScreen.storyboard */,
 				5D6BFE5F26AB2FDE006D0BD6 /* Info.plist */,
 			);
