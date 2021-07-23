@@ -85,7 +85,6 @@ class LabelTableViewCell: UITableViewCell {
                              y: 0,
                              width: contentView.frame.size.width - 20 - iconContainer.frame.size.width,
                              height: contentView.frame.size.height)
-        
     }
     
     // MARK: - Configure cell

@@ -7,6 +7,41 @@
 
 import UIKit
 
+// MARK: - Type of cell
+
+struct Sections {
+    let options: [SettingsOptionType]
+}
+
+enum SettingsOptionType {
+    case standardCell(model: SettingStandardOption)
+    case switchCell(model: SettingSwitchOptions)
+    case labelCell(model: SettingLabelOptions)
+}
+
+struct SettingStandardOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (() -> Void)
+}
+
+struct SettingSwitchOptions {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (() -> Void)
+    var isOn: Bool
+}
+
+struct SettingLabelOptions {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    var label: String
+    let handler: (() -> Void)
+}
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - TableView
@@ -75,7 +110,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.configure(with: model)
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,6 +124,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case.labelCell(let model):
             model.handler()
         }
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+        view.addSubview(tableView)
+        self.title = "Настройки"
     }
     
     // MARK: - Configure cell
@@ -225,48 +268,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             handler: {print("Нажата ячейка Конфиденциальность")})),
         ]))
     }
-    
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configure()
-        view.addSubview(tableView)
-        self.title = "Настройки"
-    }
-}
-
-    // MARK: - Type of cell
-
-struct Sections {
-    let options: [SettingsOptionType]
-}
-
-enum SettingsOptionType {
-    case standardCell(model: SettingStandardOption)
-    case switchCell(model: SettingSwitchOptions)
-    case labelCell(model: SettingLabelOptions)
-}
-
-struct SettingStandardOption {
-    let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
-    let handler: (() -> Void)
-}
-
-struct SettingSwitchOptions {
-    let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
-    let handler: (() -> Void)
-    var isOn: Bool
-}
-
-struct SettingLabelOptions {
-    let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
-    var label: String
-    let handler: (() -> Void)
 }

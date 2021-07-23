@@ -67,7 +67,6 @@ class StandardTableViewCell: UITableViewCell {
                                      y: (size - imageSize)/2,
                                      width: imageSize,
                                      height: imageSize)
-      
         
         label.frame = CGRect(x: 25 + iconContainer.frame.size.width,
                              y: 0,
