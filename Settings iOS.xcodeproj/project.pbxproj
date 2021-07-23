@@ -14,6 +14,7 @@
 		5D6BFE5E26AB2FDE006D0BD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BFE5C26AB2FDE006D0BD6 /* LaunchScreen.storyboard */; };
 		5D6BFE7626AB50A8006D0BD6 /* StandardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6BFE7526AB50A8006D0BD6 /* StandardTableViewCell.swift */; };
 		5D6BFE7C26AB5796006D0BD6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6BFE7B26AB5796006D0BD6 /* SwitchTableViewCell.swift */; };
+		5D6BFE8226AB5AD1006D0BD6 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6BFE8126AB5AD1006D0BD6 /* LabelTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5D6BFE5F26AB2FDE006D0BD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D6BFE7526AB50A8006D0BD6 /* StandardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTableViewCell.swift; sourceTree = "<group>"; };
 		5D6BFE7B26AB5796006D0BD6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		5D6BFE8126AB5AD1006D0BD6 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				5D6BFE7526AB50A8006D0BD6 /* StandardTableViewCell.swift */,
 				5D6BFE7B26AB5796006D0BD6 /* SwitchTableViewCell.swift */,
+				5D6BFE8126AB5AD1006D0BD6 /* LabelTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D6BFE5626AB2FD0006D0BD6 /* ViewController.swift in Sources */,
+				5D6BFE8226AB5AD1006D0BD6 /* LabelTableViewCell.swift in Sources */,
 				5D6BFE7C26AB5796006D0BD6 /* SwitchTableViewCell.swift in Sources */,
 				5D6BFE5226AB2FD0006D0BD6 /* AppDelegate.swift in Sources */,
 				5D6BFE7626AB50A8006D0BD6 /* StandardTableViewCell.swift in Sources */,
