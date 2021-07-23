@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(StandardTableViewCell.self, forCellReuseIdentifier: StandardTableViewCell.indentifier)
+        table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.indentifier)
         table.delegate = self
         table.dataSource = self
         table.frame = view.bounds
@@ -48,6 +49,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.configure(with: model)
             return cell
+            
+        case.switchCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: SwitchTableViewCell.indentifier,
+                for: indexPath
+            ) as? SwitchTableViewCell else {
+                return UITableViewCell()
+                }
+            
+            cell.configure(with: model)
+            return cell
         }
     }
     
@@ -58,6 +70,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switch type.self {
         case.standardCell(let model):
             model.handler()
+        case.switchCell(let model):
+            model.handler()
         }
     }
     
@@ -66,11 +80,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func configure() {
       
         models.append(Sections(options: [
-                    .standardCell(model:  SettingStandardOption(
-                                    title: "Сотовая связь",
-                                    icon: UIImage(systemName: "antenna.radiowaves.left.and.right"),
-                                    iconBackgroundColor: .systemGreen,
-                                    handler: {print("Нажата ячейка Сотовая связь")})),
+            .switchCell(model: SettingSwitchOptions(
+                            title: "Авиарежим",
+                            icon: UIImage(systemName: "airplane"),
+                            iconBackgroundColor: .systemOrange,
+                            handler: {print("Нажата ячейка Авиарежим")},
+                            isOn: true)),
+            
+            .standardCell(model:  SettingStandardOption(
+                            title: "Сотовая связь",
+                            icon: UIImage(systemName: "antenna.radiowaves.left.and.right"),
+                            iconBackgroundColor: .systemGreen,
+                            handler: {print("Нажата ячейка Сотовая связь")})),
         ]))
     }
     
@@ -92,6 +113,8 @@ struct Sections {
 
 enum SettingsOptionType {
     case standardCell(model: SettingStandardOption)
+    case switchCell(model: SettingSwitchOptions)
+    
 }
 
 struct SettingStandardOption {
@@ -101,3 +124,10 @@ struct SettingStandardOption {
     let handler: (() -> Void)
 }
 
+struct SettingSwitchOptions {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (() -> Void)
+    var isOn: Bool
+}
