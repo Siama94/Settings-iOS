@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private lazy var tableView: UITableView = {
         
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(UITableView.self, forCellReuseIdentifier: "cell")
+        table.register(StandardTableViewCell.self, forCellReuseIdentifier: StandardTableViewCell.indentifier)
         table.delegate = self
         table.dataSource = self
         table.frame = view.bounds
@@ -23,22 +23,81 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }()
     
+    var models = [Sections]()
+    
     // MARK: - Functions
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return models.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return models[section].options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
+        let model = models[indexPath.section].options[indexPath.row]
+        
+        switch model.self {
+        case.standardCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: StandardTableViewCell.indentifier,
+                for: indexPath
+            ) as? StandardTableViewCell else {
+                return UITableViewCell()
+                }
+            
+            cell.configure(with: model)
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let type = models[indexPath.section].options[indexPath.row]
+        
+        switch type.self {
+        case.standardCell(let model):
+            model.handler()
+        }
+    }
+    
+    // MARK: - Configure cell
+    
+    func configure() {
+      
+        models.append(Sections(options: [
+                    .standardCell(model:  SettingStandardOption(
+                                    title: "Сотовая связь",
+                                    icon: UIImage(systemName: "antenna.radiowaves.left.and.right"),
+                                    iconBackgroundColor: .systemGreen,
+                                    handler: {print("Нажата ячейка Сотовая связь")})),
+        ]))
     }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configure()
+        view.addSubview(tableView)
         self.title = "Настройки"
     }
+}
+
+    // MARK: - Type of cell
+
+struct Sections {
+    let options: [SettingsOptionType]
+}
+
+enum SettingsOptionType {
+    case standardCell(model: SettingStandardOption)
+}
+
+struct SettingStandardOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (() -> Void)
 }
 
